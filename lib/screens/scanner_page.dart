@@ -31,6 +31,7 @@ class _ScannerPageState extends State<ScannerPage>
   late final ValueNotifier<ProductResultV3?> _product;
   ProductResultV3? get _productValue => _product.value;
   set _productValue(ProductResultV3? newValue) {
+    if(_isDisposed) return;
     _product.value = newValue;
   }
 
@@ -41,6 +42,7 @@ class _ScannerPageState extends State<ScannerPage>
   late final ValueNotifier<bool> _isFetching;
   bool get _isFetchingValue => _isFetching.value;
   set _isFetchingValue(bool newValue) {
+    if(_isDisposed) return;
     _isFetching.value = newValue;
   }
 
@@ -49,14 +51,21 @@ class _ScannerPageState extends State<ScannerPage>
 
   /// Fetch [ProductResultV3] by [barcode] via OpenFoodFacts API
   void _fetchProductInfo(String barcode) async {
-    if (_isLoading) return;
+    if (_isLoading || _isDisposed) return;
     debugPrint("ScannerPage fetchProductInfo Started");
 
     _isLoading = true;
     _isFetchingValue = true;
     try {
       _productValue = await OpenFoodAPIClient.getProductV3(
-        ProductQueryConfiguration(barcode, version: ProductQueryVersion.v3),
+        ProductQueryConfiguration(
+          barcode,
+          version: ProductQueryVersion.v3,
+          languages: const [
+            OpenFoodFactsLanguage.ENGLISH,
+            OpenFoodFactsLanguage.UKRAINIAN,
+          ],
+        ),
       );
     } catch (e) {
       debugPrint("ScannerPage fetchProductInfo Error: $e");
@@ -68,6 +77,7 @@ class _ScannerPageState extends State<ScannerPage>
   }
 
   Future<void> _initPermission() async {
+    if(_isDisposed) return;
     final granted = await PermissionUtil.requestCameraPermission();
 
     setState(() {
@@ -86,9 +96,11 @@ class _ScannerPageState extends State<ScannerPage>
     _initPermission();
   }
 
+  bool _isDisposed = false;
   @override
   void dispose() {
     debugPrint("ScannerPage Dispose");
+    _isDisposed = true;
     _controller.dispose();
     _product.dispose();
     _isFetching.dispose();
@@ -97,7 +109,7 @@ class _ScannerPageState extends State<ScannerPage>
 
   @override
   Widget build(BuildContext context) {
-    if (_checkingPermission) {
+    if (_checkingPermission || _isDisposed) {
       return const Center(child: CircularProgressIndicator());
     }
 
@@ -114,7 +126,10 @@ class _ScannerPageState extends State<ScannerPage>
             const SizedBox(height: 16),
             Text(
               "Camera permission required",
-              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 18,
+              ),
             ),
             const SizedBox(height: 16),
             ElevatedButton(

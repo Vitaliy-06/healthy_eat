@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
+
+enum AppLanguage { ukrainian, english }
+
+abstract class AppLocalization {
+  static const Map<AppLanguage, Map<String, String>> appTexts = {
+    AppLanguage.ukrainian: {
+      'settings': 'Налаштування',
+      'history': 'Історія',
+      'scan': 'Сканувати',
+
+      'language': 'Мова',
+
+      'details': 'Деталі',
+      'scan a product': 'Проскануйте Продукт',
+      'unknown': 'Невідомо',
+
+      'ingredients': 'Інгредієнти',
+      'brand': 'Виробник',
+      'nutrition facts': 'Харчова Цінність',
+      'allergens': 'Алергени'
+    },
+    AppLanguage.english: {
+      'settings': 'Settings',
+      'history': 'History',
+      'scan': 'Scan',
+
+      'language': 'Language',
+
+      'details': 'Details',
+      'scan a product': 'Scan a Product',
+      'unknown': 'Unknown',
+
+      'ingredients': 'Ingredients',
+      'brand': 'Brand',
+      'nutrition facts': 'Nutrition Facts',
+      'allergens': 'Allergens'
+    },
+  };
+
+  static String getText(Locale? locale, String key) {
+    final lang = locale?.languageCode ?? 'en';
+
+    final appLang = lang == 'uk' ? AppLanguage.ukrainian : AppLanguage.english;
+
+    return appTexts[appLang]?[key] ?? key;
+  }
+
+  static OpenFoodFactsLanguage fromLocale(Locale? locale) {
+    switch (locale?.languageCode) {
+      case 'uk':
+        return OpenFoodFactsLanguage.UKRAINIAN;
+      case 'en':
+      default:
+        return OpenFoodFactsLanguage.ENGLISH;
+    }
+  }
+}

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_food/localization/app_localization.dart';
+import 'package:healthy_food/localization/locale_provider.dart';
 import 'package:healthy_food/screens/scanner_page.dart';
+import 'package:healthy_food/screens/settings_page.dart';
+import 'package:provider/provider.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -20,6 +24,8 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.watch<LocaleProvider>().locale;
+
     return Scaffold(
       body: PageView(
         controller: _controller,
@@ -31,7 +37,7 @@ class _LayoutState extends State<Layout> {
         children: const [
           Center(child: Text('History page')),
           ScannerPage(),
-          Center(child: Text('Settings page')),
+          SettingsPage(),
         ],
       ),
 
@@ -43,12 +49,27 @@ class _LayoutState extends State<Layout> {
         unselectedFontSize: 14,
         selectedFontSize: 14,
         useLegacyColorScheme: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(icon: Icon(Icons.barcode_reader), label: "Scan"),
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.history),
+            label: AppLocalization.getText(
+              locale,
+              "history",
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.barcode_reader),
+            label: AppLocalization.getText(
+              locale,
+              "scan",
+            ),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: "Settings",
+            label: AppLocalization.getText(
+              locale,
+              "settings",
+            ),
           ),
         ],
       ),

@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:healthy_food/localization/app_localization.dart';
+import 'package:healthy_food/localization/locale_provider.dart';
 import 'package:healthy_food/util/nutri_score_util.dart';
 import 'package:healthy_food/widgets/product_dialog.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   final Product? product;
@@ -12,6 +15,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final locale = context.watch<LocaleProvider>().locale;
+    final lang = AppLocalization.fromLocale(locale);
 
     return Card(
       elevation: 0,
@@ -50,8 +55,10 @@ class ProductCard extends StatelessWidget {
 
             /// TITLE
             Text(
-              product?.productName ?? "Scan a Product",
-              maxLines: 2,
+              product?.productNameInLanguages?[lang] ??
+                  product?.productName ??
+                  AppLocalization.getText(locale, "scan a product"),
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Theme.of(
@@ -110,7 +117,7 @@ class ProductCard extends StatelessWidget {
                         const Icon(Icons.info_outline),
                         const SizedBox(width: 5),
                         Text(
-                          'Details',
+                          AppLocalization.getText(locale, "details"),
                           style: Theme.of(context).textTheme.titleSmall
                               ?.copyWith(
                                 fontWeight: FontWeight.w700,
