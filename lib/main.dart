@@ -11,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
+  await Hive.openBox("ProductsBox");
 
   OpenFoodAPIConfiguration.userAgent = UserAgent(name: "hEat");
 

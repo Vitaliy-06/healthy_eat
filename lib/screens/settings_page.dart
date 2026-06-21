@@ -21,6 +21,18 @@ class SettingsPage extends StatelessWidget {
               title: Text(AppLocalization.getText(locale, 'language')),
               trailing: const LanguageSettings(),
             ),
+
+            const SizedBox(height: 12),
+
+            Text(
+              AppLocalization.getText(locale, "data sources"),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: const Text("Open Food Facts"),
+              subtitle: const Text("Product data source (ODbL license)"),
+            ),
           ],
         ),
       ),

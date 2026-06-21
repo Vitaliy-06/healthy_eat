@@ -17,7 +17,6 @@ class ProductDialog extends StatefulWidget {
 }
 
 class _ProductDialogState extends State<ProductDialog> {
-
   late final ScrollController _scrollController;
 
   @override
@@ -31,7 +30,6 @@ class _ProductDialogState extends State<ProductDialog> {
     _scrollController.dispose();
     super.dispose();
   }
-
 
   TableRow _nutritionRow(String title, String value) {
     return TableRow(
@@ -63,7 +61,12 @@ class _ProductDialogState extends State<ProductDialog> {
 
       if (value == null) continue;
 
-      rows.add(_nutritionRow(nutrient.displayName, "$value ${nutrient.typicalUnit.offTag}"));
+      rows.add(
+        _nutritionRow(
+          nutrient.displayName,
+          "$value ${nutrient.typicalUnit.offTag}",
+        ),
+      );
     }
 
     return rows;
@@ -132,7 +135,7 @@ class _ProductDialogState extends State<ProductDialog> {
 
               Text(
                 "100g/100ml",
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
 
               const SizedBox(height: 8),
@@ -198,6 +201,20 @@ class _ProductDialogState extends State<ProductDialog> {
                 widget.product?.ingredientsTextInLanguages?[lang] ??
                     widget.product?.ingredientsText ??
                     AppLocalization.getText(locale, 'unknown'),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+
+              const SizedBox(height: 20),
+
+              Text(
+                AppLocalization.getText(locale, 'additives'),
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                "${widget.product?.additives?.names.join(", ") ?? AppLocalization.getText(locale, 'unknown')}.",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

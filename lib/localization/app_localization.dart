@@ -11,6 +11,7 @@ abstract class AppLocalization {
       'scan': 'Сканувати',
 
       'language': 'Мова',
+      'data sources': 'Джерела даних',
 
       'details': 'Деталі',
       'scan a product': 'Проскануйте Продукт',
@@ -19,7 +20,8 @@ abstract class AppLocalization {
       'ingredients': 'Інгредієнти',
       'brand': 'Виробник',
       'nutrition facts': 'Харчова Цінність',
-      'allergens': 'Алергени'
+      'allergens': 'Алергени',
+      'additives': 'Добавки'
     },
     AppLanguage.english: {
       'settings': 'Settings',
@@ -27,6 +29,7 @@ abstract class AppLocalization {
       'scan': 'Scan',
 
       'language': 'Language',
+      'data sources': 'Data sources',
 
       'details': 'Details',
       'scan a product': 'Scan a Product',
@@ -35,7 +38,8 @@ abstract class AppLocalization {
       'ingredients': 'Ingredients',
       'brand': 'Brand',
       'nutrition facts': 'Nutrition Facts',
-      'allergens': 'Allergens'
+      'allergens': 'Allergens',
+      'additives': 'Additives',
     },
   };
 

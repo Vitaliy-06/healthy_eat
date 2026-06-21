@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:healthy_food/controllers/hive_controller.dart';
 import 'package:healthy_food/util/nutri_score_util.dart';
 import 'package:healthy_food/util/permission_util.dart';
 import 'package:healthy_food/widgets/loading_card.dart';
@@ -31,7 +32,7 @@ class _ScannerPageState extends State<ScannerPage>
   late final ValueNotifier<ProductResultV3?> _product;
   ProductResultV3? get _productValue => _product.value;
   set _productValue(ProductResultV3? newValue) {
-    if(_isDisposed) return;
+    if (_isDisposed) return;
     _product.value = newValue;
   }
 
@@ -42,12 +43,15 @@ class _ScannerPageState extends State<ScannerPage>
   late final ValueNotifier<bool> _isFetching;
   bool get _isFetchingValue => _isFetching.value;
   set _isFetchingValue(bool newValue) {
-    if(_isDisposed) return;
+    if (_isDisposed) return;
     _isFetching.value = newValue;
   }
 
   // Is loading
   bool _isLoading = false;
+
+  // Hive
+  late final HiveController _hiveController;
 
   /// Fetch [ProductResultV3] by [barcode] via OpenFoodFacts API
   void _fetchProductInfo(String barcode) async {
@@ -67,6 +71,7 @@ class _ScannerPageState extends State<ScannerPage>
           ],
         ),
       );
+      _addProductToHive(_productValue?.product);
     } catch (e) {
       debugPrint("ScannerPage fetchProductInfo Error: $e");
     } finally {
@@ -76,8 +81,13 @@ class _ScannerPageState extends State<ScannerPage>
     }
   }
 
+  void _addProductToHive(Product? product) {
+    if (product == null) return;
+    _hiveController.createProduct(product: product);
+  }
+
   Future<void> _initPermission() async {
-    if(_isDisposed) return;
+    if (_isDisposed) return;
     final granted = await PermissionUtil.requestCameraPermission();
 
     setState(() {
@@ -93,6 +103,7 @@ class _ScannerPageState extends State<ScannerPage>
     _isFetching = ValueNotifier(false);
     _product = ValueNotifier(null);
     _controller = MobileScannerController();
+    _hiveController = HiveController();
     _initPermission();
   }
 

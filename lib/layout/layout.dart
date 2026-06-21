@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_food/localization/app_localization.dart';
 import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/screens/history_page.dart';
 import 'package:healthy_food/screens/scanner_page.dart';
 import 'package:healthy_food/screens/settings_page.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class _LayoutState extends State<Layout> {
           });
         },
         children: const [
-          Center(child: Text('History page')),
+          HistoryPage(),
           ScannerPage(),
           SettingsPage(),
         ],
