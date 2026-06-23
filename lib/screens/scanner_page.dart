@@ -82,7 +82,7 @@ class _ScannerPageState extends State<ScannerPage>
   }
 
   void _addProductToHive(Product? product) {
-    if (product == null) return;
+    if (product == null || _isDisposed) return;
     _hiveController.createProduct(product: product);
   }
 

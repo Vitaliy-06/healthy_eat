@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healthy_food/controllers/hive_controller.dart';
 import 'package:healthy_food/localization/app_localization.dart';
 import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/widgets/product_tile.dart';
 import 'package:provider/provider.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -16,18 +17,14 @@ class HistoryPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalization.getText(locale, "history")),
-        ),
+        appBar: AppBar(title: Text(AppLocalization.getText(locale, "history"))),
         body: ListView.builder(
           padding: const EdgeInsets.all(8),
           itemCount: products.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 50,
-              child: Center(
-                child: Text('Entry ${products[index].productName ?? "hello"}'),
-              ),
+            return ProductTile(
+              product: products[index],
+              controller: controller,
             );
           },
         ),
