@@ -48,8 +48,9 @@ class _LayoutState extends State<Layout> {
           _controller.jumpToPage(index);
         },
         unselectedFontSize: 14,
-        selectedFontSize: 14,
+        selectedFontSize: 15,
         useLegacyColorScheme: false,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.history),

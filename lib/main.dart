@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:healthy_food/layout/layout.dart';
 import 'package:healthy_food/localization/locale_provider.dart';
 import 'package:healthy_food/theme/healthy_theme.dart';
@@ -10,10 +11,15 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
+
   await Hive.initFlutter();
   await Hive.openBox("ProductsBox");
 
-  OpenFoodAPIConfiguration.userAgent = UserAgent(name: "hEat");
+  OpenFoodAPIConfiguration.userAgent = UserAgent(name: "healthy_eat", url: r"https://github.com/Vitaliy-06/healthy_eat");
 
   OpenFoodAPIConfiguration.globalLanguages = [
     OpenFoodFactsLanguage.ENGLISH,

@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_food/controllers/hive_controller.dart';
 import 'package:healthy_food/localization/app_localization.dart';
 import 'package:healthy_food/localization/locale_provider.dart';
-import 'package:healthy_food/util/nutri_score_util.dart';
 import 'package:healthy_food/util/permission_util.dart';
 import 'package:healthy_food/widgets/loading_card.dart';
 import 'package:healthy_food/widgets/product_card.dart';
@@ -18,15 +16,10 @@ class ScannerPage extends StatefulWidget {
   State<ScannerPage> createState() => _ScannerPageState();
 }
 
-class _ScannerPageState extends State<ScannerPage>
-    with AutomaticKeepAliveClientMixin {
+class _ScannerPageState extends State<ScannerPage> {
   // Permission
   bool _hasCameraPermission = false;
   bool _checkingPermission = true;
-
-  // When switching to another screen, this widget will dispose
-  @override
-  bool get wantKeepAlive => false;
 
   // Mobile Scanner
   late final MobileScannerController _controller;
@@ -44,7 +37,6 @@ class _ScannerPageState extends State<ScannerPage>
 
   // Is fetching product
   late final ValueNotifier<bool> _isFetching;
-  bool get _isFetchingValue => _isFetching.value;
   set _isFetchingValue(bool newValue) {
     if (_isDisposed) return;
     _isFetching.value = newValue;

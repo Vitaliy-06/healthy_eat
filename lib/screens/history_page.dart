@@ -11,20 +11,37 @@ class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = context.watch<LocaleProvider>().locale;
-
     final HiveController controller = HiveController();
-    final products = controller.fetchData();
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: Text(AppLocalization.getText(locale, "history"))),
-        body: ListView.builder(
-          padding: const EdgeInsets.all(8),
-          itemCount: products.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ProductTile(
-              product: products[index],
-              controller: controller,
+        body: FutureBuilder(
+          future: controller.fetchData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            }
+
+            if (snapshot.hasError) {
+              return Center(child: Text( AppLocalization.getText(locale, "error loading data") ));
+            }
+
+            final products = snapshot.data ?? [];
+
+            if (products.isEmpty) {
+              return Center(child: Text(AppLocalization.getText(locale, "no history yet"), style: Theme.of(context).textTheme.bodyLarge ));
+            }
+
+            return ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: products.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ProductTile(
+                  product: products[index],
+                  controller: controller,
+                );
+              },
             );
           },
         ),

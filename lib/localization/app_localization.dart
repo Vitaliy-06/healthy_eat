@@ -10,6 +10,9 @@ abstract class AppLocalization {
       'history': 'Історія',
       'scan': 'Сканувати',
 
+      'no history yet': 'Історії ще немає',
+      'error loading data': 'Помилка завантаження даних',
+
       'language': 'Мова',
       'data sources': 'Джерела даних',
 
@@ -29,6 +32,9 @@ abstract class AppLocalization {
       'settings': 'Settings',
       'history': 'History',
       'scan': 'Scan',
+
+      'no history yet': 'No history yet',
+      'error loading data': 'Error loading data',
 
       'language': 'Language',
       'data sources': 'Data sources',

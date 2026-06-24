@@ -8,7 +8,7 @@ class HiveController {
   final Box hiveBox = Hive.box("ProductsBox");
 
   /// Fetch all Products from Hive
-  List<Product> fetchData() {
+  Future<List<Product>> fetchData() async {
     dynamic normalizeJson(dynamic input) {
       if (input is Map) {
         return input.map(
