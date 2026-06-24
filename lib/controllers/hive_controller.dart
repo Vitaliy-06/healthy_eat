@@ -9,7 +9,6 @@ class HiveController {
 
   /// Fetch all Products from Hive
   List<Product> fetchData() {
-    // Converts all keys into String to avoid the error during parsing from json to Product
     dynamic normalizeJson(dynamic input) {
       if (input is Map) {
         return input.map(
@@ -22,26 +21,33 @@ class HiveController {
       return input;
     }
 
-    final products = <Product>[];
-    for (final json in hiveBox.values) {
+    final items = <Map<String, dynamic>>[];
+    for (final value in hiveBox.values) {
       try {
-        
-        final map = normalizeJson(json);
-        final product = Product.fromJson(map);
-
-        products.add(product);
+        final map = normalizeJson(value);
+        items.add({
+          'timestamp': map['timestamp'] ?? 0,
+          'product': map['product'],
+        });
       } catch (e) {
-        debugPrint('Failed to parse Product: $e');
+        debugPrint('Parse error: $e');
       }
     }
 
-    return products.reversed.toList();
+    items.sort((a, b) => b['timestamp'].compareTo(a['timestamp']));
+    return items.map((e) => Product.fromJson(e['product'])).toList();
   }
 
   Future<void> createProduct({required Product product}) async {
     try {
       final json = Map<String, dynamic>.from(product.toJson());
-      await hiveBox.put(product.barcode, json);
+
+      final data = {
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'product': json,
+      };
+
+      await hiveBox.put(product.barcode, data);
     } catch (e) {
       debugPrint('Failed to create Product: $e');
     }
