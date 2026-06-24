@@ -13,6 +13,8 @@ abstract class AppLocalization {
       'language': 'Мова',
       'data sources': 'Джерела даних',
 
+      'camera permission required': 'Потрібен дозвіл камери',
+      'allow access': 'Дозволити доступ',
       'details': 'Деталі',
       'scan a product': 'Проскануйте Продукт',
       'unknown': 'Невідомо',
@@ -30,7 +32,9 @@ abstract class AppLocalization {
 
       'language': 'Language',
       'data sources': 'Data sources',
-
+      
+      'camera permission required': 'Camera permission required',
+      'allow access': 'Allow access',
       'details': 'Details',
       'scan a product': 'Scan a Product',
       'unknown': 'Unknown',

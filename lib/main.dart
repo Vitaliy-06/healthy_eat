@@ -20,9 +20,12 @@ void main() async {
     OpenFoodFactsLanguage.UKRAINIAN,
   ];
 
+  final LocaleProvider localeProvider = LocaleProvider();
+  await localeProvider.loadLocale();
+
   runApp(
     ChangeNotifierProvider(
-      create: (_) => LocaleProvider(),
+      create: (_) => localeProvider,
       child: const MyApp(),
     ),
   );

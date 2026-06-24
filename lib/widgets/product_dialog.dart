@@ -133,10 +133,7 @@ class _ProductDialogState extends State<ProductDialog> {
                 ],
               ),
 
-              Text(
-                "100g/100ml",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text("100g/100ml", style: Theme.of(context).textTheme.bodySmall),
 
               const SizedBox(height: 8),
 
@@ -152,8 +149,8 @@ class _ProductDialogState extends State<ProductDialog> {
                   controller: _scrollController,
                   thumbVisibility: true,
                   radius: Radius.circular(12),
-
                   child: ListView.separated(
+                    shrinkWrap: true,
                     controller: _scrollController,
                     padding: const EdgeInsets.all(8),
                     itemCount: nutritionTable.length,
@@ -182,7 +179,9 @@ class _ProductDialogState extends State<ProductDialog> {
               const SizedBox(height: 8),
 
               Text(
-                "${widget.product?.allergens?.names.join(", ") ?? "No allergens"}.",
+                widget.product?.allergens?.names.isNotEmpty == true
+                    ? "${widget.product!.allergens!.names.join(", ")}."
+                    : "No allergens",
                 style: Theme.of(
                   context,
                 ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
@@ -214,7 +213,9 @@ class _ProductDialogState extends State<ProductDialog> {
               const SizedBox(height: 8),
 
               Text(
-                "${widget.product?.additives?.names.join(", ") ?? AppLocalization.getText(locale, 'unknown')}.",
+                widget.product?.additives?.names.isNotEmpty == true
+                    ? "${widget.product!.additives!.names.join(", ")}."
+                    : AppLocalization.getText(locale, 'unknown'),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

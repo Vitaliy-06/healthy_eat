@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_food/controllers/hive_controller.dart';
+import 'package:healthy_food/localization/app_localization.dart';
+import 'package:healthy_food/localization/locale_provider.dart';
 import 'package:healthy_food/util/nutri_score_util.dart';
 import 'package:healthy_food/util/permission_util.dart';
 import 'package:healthy_food/widgets/loading_card.dart';
 import 'package:healthy_food/widgets/product_card.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:provider/provider.dart';
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({super.key});
@@ -120,6 +123,8 @@ class _ScannerPageState extends State<ScannerPage>
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.watch<LocaleProvider>().locale;
+
     if (_checkingPermission || _isDisposed) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -136,7 +141,7 @@ class _ScannerPageState extends State<ScannerPage>
             ),
             const SizedBox(height: 16),
             Text(
-              "Camera permission required",
+              AppLocalization.getText(locale, "camera permission required"),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 18,
@@ -151,7 +156,7 @@ class _ScannerPageState extends State<ScannerPage>
                   _hasCameraPermission = granted;
                 });
               },
-              child: const Text("Allow access"),
+              child: Text(AppLocalization.getText(locale, 'allow access')),
             ),
           ],
         ),

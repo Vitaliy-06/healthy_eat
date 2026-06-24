@@ -43,13 +43,17 @@ class ProductTile extends StatelessWidget {
             ),
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(
-                imageUrl: product.imageFrontSmallUrl!,
-                fit: BoxFit.cover,
-                placeholder: (_, __) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (_, __, ___) =>
-                    const Icon(Icons.image_not_supported_outlined),
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CachedNetworkImage(
+                  imageUrl: product.imageFrontSmallUrl ?? "",
+                  fit: BoxFit.cover,
+                  placeholder: (_, __) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (_, __, ___) =>
+                      const Icon(Icons.image_not_supported_outlined),
+                ),
               ),
             ),
             title: Text(
