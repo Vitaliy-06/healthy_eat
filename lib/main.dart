@@ -19,7 +19,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox("ProductsBox");
 
-  OpenFoodAPIConfiguration.userAgent = UserAgent(name: "healthy_eat", url: r"https://github.com/Vitaliy-06/healthy_eat");
+  OpenFoodAPIConfiguration.userAgent = UserAgent(name: "HealthyEat", url: r"https://github.com/Vitaliy-06/healthy_eat");
 
   OpenFoodAPIConfiguration.globalLanguages = [
     OpenFoodFactsLanguage.ENGLISH,

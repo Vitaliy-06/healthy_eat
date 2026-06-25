@@ -1,4 +1,4 @@
-# Healthy Food Scanner 🍏
+# HealthyEat App Scanner 🥦
 
 A Flutter app for scanning food products and viewing nutrition information using the OpenFoodFacts API.
 
@@ -15,11 +15,13 @@ https://world.openfoodfacts.org/
 
 ---
 
-## 📱 Features
+## Features
 
 - Barcode scanning (EAN/UPC)
 - Product information from OpenFoodFacts
 - Nutrition facts table
 - Product images with caching
+- History of scanned products (max 20)
+- English and Ukrainian localization
 
 ---

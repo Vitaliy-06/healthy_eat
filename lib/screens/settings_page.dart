@@ -21,6 +21,8 @@ class SettingsPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           children: [
             ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.language),
               title: Text(AppLocalization.getText(locale, 'language')),
               trailing: const LanguageSettings(),
             ),
@@ -33,16 +35,62 @@ class SettingsPage extends StatelessWidget {
             ),
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text("Open Food Facts"),
-              subtitle: const Text("Product data source (ODbL license)"),
+              leading: const Icon(Icons.source),
+              title: Text(AppLocalization.getText(locale, "open food facts")),
+              subtitle: Text(
+                AppLocalization.getText(locale, "data source license"),
+              ),
               onTap: () async {
-                final url = Uri.parse(r'https://world.openfoodfacts.org/');
+                final url = Uri.parse('https://world.openfoodfacts.org/');
 
                 if (!await launchUrl(
                   url,
                   mode: LaunchMode.externalApplication,
                 )) {
                   debugPrint("SettingsPage, could not launch $url");
+                }
+              },
+            ),
+
+            const SizedBox(height: 24),
+
+            Text(
+              AppLocalization.getText(locale, "legal"),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.privacy_tip),
+              title: Text(AppLocalization.getText(locale, "privacy policy")),
+              subtitle: Text(
+                AppLocalization.getText(locale, "view data usage"),
+              ),
+              onTap: () async {
+                final url = Uri.parse("https://vitaliy-06.github.io/healthy_eat_legal/");
+
+                if (!await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                )) {
+                  debugPrint("Could not launch $url");
+                }
+              },
+            ),
+
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.description),
+              title: Text(AppLocalization.getText(locale, "terms")),
+              subtitle: Text(AppLocalization.getText(locale, "app rules")),
+              onTap: () async {
+                final url = Uri.parse("https://vitaliy-06.github.io/healthy_eat_legal/terms");
+
+                if (!await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                )) {
+                  debugPrint("Could not launch $url");
                 }
               },
             ),

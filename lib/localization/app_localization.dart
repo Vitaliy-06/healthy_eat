@@ -15,6 +15,13 @@ abstract class AppLocalization {
 
       'language': 'Мова',
       'data sources': 'Джерела даних',
+      'open food facts': 'Open Food Facts',
+      'data source license': 'Джерело даних (ліцензія ODbL)',
+      'legal': 'Юридична інформація',
+      'privacy policy': 'Політика конфіденційності',
+      'view data usage': 'Як використовуються ваші дані',
+      'terms': 'Умови використання',
+      'app rules': 'Правила використання додатку',
 
       'camera permission required': 'Потрібен дозвіл камери',
       'allow access': 'Дозволити доступ',
@@ -26,7 +33,7 @@ abstract class AppLocalization {
       'brand': 'Виробник',
       'nutrition facts': 'Харчова Цінність',
       'allergens': 'Алергени',
-      'additives': 'Добавки'
+      'additives': 'Добавки',
     },
     AppLanguage.english: {
       'settings': 'Settings',
@@ -38,7 +45,14 @@ abstract class AppLocalization {
 
       'language': 'Language',
       'data sources': 'Data sources',
-      
+      'open food facts': 'Open Food Facts',
+      'data source license': 'Product data source (ODbL license)',
+      'legal': 'Legal',
+      'privacy policy': 'Privacy Policy',
+      'view data usage': 'View how your data is used',
+      'terms': 'Terms & Conditions',
+      'app rules': 'Rules for using the app',
+
       'camera permission required': 'Camera permission required',
       'allow access': 'Allow access',
       'details': 'Details',
