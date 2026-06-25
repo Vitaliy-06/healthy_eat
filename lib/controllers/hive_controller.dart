@@ -7,6 +7,8 @@ class HiveController {
 
   final Box hiveBox = Hive.box("ProductsBox");
 
+  static const int _maxAmount = 20;
+
   /// Fetch all Products from Hive
   Future<List<Product>> fetchData() async {
     dynamic normalizeJson(dynamic input) {
@@ -48,6 +50,26 @@ class HiveController {
       };
 
       await hiveBox.put(product.barcode, data);
+
+      // Keep only 20 products
+      if (hiveBox.length > _maxAmount) {
+        final items = <MapEntry<dynamic, int>>[];
+
+        for (final key in hiveBox.keys) {
+          final value = hiveBox.get(key);
+          final timestamp = value['timestamp'] ?? 0;
+
+          items.add(MapEntry(key, timestamp));
+        }
+
+        items.sort((a, b) => a.value.compareTo(b.value));
+
+        final amountToDelete = hiveBox.length - _maxAmount;
+        for (int i = 0; i < amountToDelete; i++) {
+          await hiveBox.delete(items[i].key);
+        }
+      }
+
     } catch (e) {
       debugPrint('Failed to create Product: $e');
     }

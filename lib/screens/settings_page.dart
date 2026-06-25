@@ -3,6 +3,7 @@ import 'package:healthy_food/localization/app_localization.dart';
 import 'package:healthy_food/localization/locale_provider.dart';
 import 'package:healthy_food/widgets/language_settings.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -13,7 +14,9 @@ class SettingsPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text(AppLocalization.getText(locale, "settings"))),
+        appBar: AppBar(
+          title: Text(AppLocalization.getText(locale, "settings")),
+        ),
         body: ListView(
           padding: const EdgeInsets.all(16),
           children: [
@@ -32,6 +35,16 @@ class SettingsPage extends StatelessWidget {
               contentPadding: EdgeInsets.zero,
               title: const Text("Open Food Facts"),
               subtitle: const Text("Product data source (ODbL license)"),
+              onTap: () async {
+                final url = Uri.parse(r'https://world.openfoodfacts.org/');
+
+                if (!await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                )) {
+                  debugPrint("SettingsPage, could not launch $url");
+                }
+              },
             ),
           ],
         ),

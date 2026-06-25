@@ -24,6 +24,7 @@ class HistoryPage extends StatelessWidget {
             }
 
             if (snapshot.hasError) {
+              debugPrint("Error during fetching products: ${snapshot.error}");
               return Center(child: Text( AppLocalization.getText(locale, "error loading data") ));
             }
 

@@ -64,6 +64,9 @@ dependencies:
   # Shared preferences
   shared_preferences: ^2.2.3
 
+  # Url
+  url_launcher: ^6.3.2
+
   
 
 dev_dependencies:

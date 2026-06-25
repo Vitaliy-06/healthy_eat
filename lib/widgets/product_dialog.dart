@@ -69,6 +69,10 @@ class _ProductDialogState extends State<ProductDialog> {
       );
     }
 
+    if (rows.isEmpty) {
+      return [_nutritionRow(AppLocalization.getText(locale, 'unknown'), "-")];
+    }
+
     return rows;
   }
 
@@ -89,13 +93,19 @@ class _ProductDialogState extends State<ProductDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (widget.product?.imageFrontUrl != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                Center(
                   child: CachedNetworkImage(
                     imageUrl: widget.product?.imageFrontUrl ?? "",
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                    imageBuilder: (context, imageProvider) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image(
+                          image: imageProvider,
+                          height: size.width * 0.3,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
                   ),
                 ),
 
@@ -181,10 +191,8 @@ class _ProductDialogState extends State<ProductDialog> {
               Text(
                 widget.product?.allergens?.names.isNotEmpty == true
                     ? "${widget.product!.allergens!.names.join(", ")}."
-                    : "No allergens",
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                    : AppLocalization.getText(locale, 'unknown'),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
 
               const SizedBox(height: 20),
