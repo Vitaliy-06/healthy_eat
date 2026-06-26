@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_food/controllers/hive_controller.dart';
 import 'package:healthy_food/localization/app_localization.dart';
@@ -48,6 +49,9 @@ class _ScannerPageState extends State<ScannerPage> {
   // Hive
   late final HiveController _hiveController;
 
+  // Flushbar
+  Flushbar? _flushbar;
+
   /// Fetch [ProductResultV3] by [barcode] via OpenFoodFacts API
   void _fetchProductInfo(String barcode) async {
     if (_isLoading || _isDisposed) return;
@@ -66,6 +70,13 @@ class _ScannerPageState extends State<ScannerPage> {
           ],
         ),
       );
+
+      if (!mounted) return;
+
+      if (_productValue?.product == null) {
+        _showNotFound();
+      }
+
       _addProductToHive(_productValue?.product);
     } catch (e) {
       debugPrint("ScannerPage fetchProductInfo Error: $e");
@@ -91,6 +102,53 @@ class _ScannerPageState extends State<ScannerPage> {
     });
   }
 
+  void _showNotFound() {
+    _flushbar = Flushbar(
+      messageText: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 320),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error,
+                color: Theme.of(context).colorScheme.error,
+                size: 24,
+              ),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  AppLocalization.getText(_locale, 'not found'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      duration: const Duration(milliseconds: 1200),
+      flushbarPosition: FlushbarPosition.TOP,
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+      borderRadius: BorderRadius.circular(16),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.12),
+          blurRadius: 18,
+          offset: const Offset(0, 8),
+        ),
+      ],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      isDismissible: false,
+    )..show(context);
+  }
+
   @override
   void initState() {
     debugPrint("ScannerPage Init State");
@@ -106,6 +164,7 @@ class _ScannerPageState extends State<ScannerPage> {
   @override
   void dispose() {
     debugPrint("ScannerPage Dispose");
+    _flushbar?.dismiss();
     _isDisposed = true;
     _controller.dispose();
     _product.dispose();
@@ -113,9 +172,12 @@ class _ScannerPageState extends State<ScannerPage> {
     super.dispose();
   }
 
+  // Locale
+  late Locale _locale;
+
   @override
   Widget build(BuildContext context) {
-    final locale = context.watch<LocaleProvider>().locale;
+    _locale = context.watch<LocaleProvider>().locale;
 
     if (_checkingPermission || _isDisposed) {
       return const Center(child: CircularProgressIndicator());
@@ -133,7 +195,7 @@ class _ScannerPageState extends State<ScannerPage> {
             ),
             const SizedBox(height: 16),
             Text(
-              AppLocalization.getText(locale, "camera permission required"),
+              AppLocalization.getText(_locale, "camera permission required"),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 18,
@@ -148,7 +210,7 @@ class _ScannerPageState extends State<ScannerPage> {
                   _hasCameraPermission = granted;
                 });
               },
-              child: Text(AppLocalization.getText(locale, 'allow access')),
+              child: Text(AppLocalization.getText(_locale, 'allow access')),
             ),
           ],
         ),

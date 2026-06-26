@@ -57,6 +57,9 @@ dependencies:
   # Program icon
   flutter_launcher_icons: ^0.13.1
 
+  # Svg
+  flutter_svg: ^2.0.10
+
   # Hive storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -66,6 +69,9 @@ dependencies:
 
   # Url
   url_launcher: ^6.3.2
+
+  # Another flushbar
+  another_flushbar: ^1.12.30
 
   
 
@@ -98,6 +104,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/icon/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:healthy_food/localization/app_localization.dart';
 import 'package:healthy_food/providers/locale_provider.dart';
 import 'package:healthy_food/util/nutri_score_util.dart';
@@ -43,9 +44,14 @@ class ProductCard extends StatelessWidget {
                       )
                     : Container(
                         color: Theme.of(context).colorScheme.surface,
-                        child: const Icon(
-                          Icons.qr_code_scanner_rounded,
-                          size: 48,
+                        child: SvgPicture.asset(
+                          'assets/icon/barcode.svg',
+                          height: 20,
+                          width: 20,
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onSurface,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
               ),

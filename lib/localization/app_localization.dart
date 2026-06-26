@@ -32,6 +32,7 @@ abstract class AppLocalization {
       'details': 'Деталі',
       'scan a product': 'Проскануйте Продукт',
       'unknown': 'Невідомо',
+      'not found': 'Не Знайдено',
 
       'ingredients': 'Інгредієнти',
       'brand': 'Виробник',
@@ -66,6 +67,7 @@ abstract class AppLocalization {
       'details': 'Details',
       'scan a product': 'Scan a Product',
       'unknown': 'Unknown',
+      'not found': 'Not Found',
 
       'ingredients': 'Ingredients',
       'brand': 'Brand',
