@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_food/localization/app_localization.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
 import 'package:healthy_food/util/nutri_score_util.dart';
 import 'package:healthy_food/util/nutrient_extension.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';

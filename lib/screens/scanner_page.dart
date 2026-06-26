@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_food/controllers/hive_controller.dart';
 import 'package:healthy_food/localization/app_localization.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
 import 'package:healthy_food/util/permission_util.dart';
 import 'package:healthy_food/widgets/loading_card.dart';
 import 'package:healthy_food/widgets/product_card.dart';

@@ -14,6 +14,10 @@ abstract class AppLocalization {
       'error loading data': 'Помилка завантаження даних',
 
       'language': 'Мова',
+      'theme': 'Тема',
+      'system': 'Системна',
+      'light': 'Світла',
+      'dark': 'Темна',
       'data sources': 'Джерела даних',
       'open food facts': 'Open Food Facts',
       'data source license': 'Джерело даних (ліцензія ODbL)',
@@ -44,6 +48,10 @@ abstract class AppLocalization {
       'error loading data': 'Error loading data',
 
       'language': 'Language',
+      'theme': 'Theme',
+      'system': 'System',
+      'light': 'Light',
+      'dark': 'Dark',
       'data sources': 'Data sources',
       'open food facts': 'Open Food Facts',
       'data source license': 'Product data source (ODbL license)',

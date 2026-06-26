@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 
 class LanguageSettings extends StatelessWidget {

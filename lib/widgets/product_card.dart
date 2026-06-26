@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_food/localization/app_localization.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
 import 'package:healthy_food/util/nutri_score_util.dart';
 import 'package:healthy_food/widgets/product_dialog.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
                             const Icon(Icons.image_not_supported_outlined),
                       )
                     : Container(
-                        color: Colors.grey.shade100,
+                        color: Theme.of(context).colorScheme.surface,
                         child: const Icon(
                           Icons.qr_code_scanner_rounded,
                           size: 48,

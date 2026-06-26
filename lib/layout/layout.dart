@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_food/localization/app_localization.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
 import 'package:healthy_food/screens/history_page.dart';
 import 'package:healthy_food/screens/scanner_page.dart';
 import 'package:healthy_food/screens/settings_page.dart';

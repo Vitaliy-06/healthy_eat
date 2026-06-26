@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_food/localization/app_localization.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
+import 'package:healthy_food/providers/theme_provider.dart';
 import 'package:healthy_food/widgets/language_settings.dart';
+import 'package:healthy_food/widgets/theme_settings.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,6 +32,15 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 12),
 
             Text(
+              AppLocalization.getText(locale, 'theme'),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+
+            ThemeSettings(),
+
+            const SizedBox(height: 12),
+
+            Text(
               AppLocalization.getText(locale, "data sources"),
               style: Theme.of(context).textTheme.titleMedium,
             ),
@@ -52,7 +63,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
 
             Text(
               AppLocalization.getText(locale, "legal"),
@@ -67,7 +78,9 @@ class SettingsPage extends StatelessWidget {
                 AppLocalization.getText(locale, "view data usage"),
               ),
               onTap: () async {
-                final url = Uri.parse("https://vitaliy-06.github.io/healthy_eat_legal/");
+                final url = Uri.parse(
+                  "https://vitaliy-06.github.io/healthy_eat_legal/",
+                );
 
                 if (!await launchUrl(
                   url,
@@ -84,7 +97,9 @@ class SettingsPage extends StatelessWidget {
               title: Text(AppLocalization.getText(locale, "terms")),
               subtitle: Text(AppLocalization.getText(locale, "app rules")),
               onTap: () async {
-                final url = Uri.parse("https://vitaliy-06.github.io/healthy_eat_legal/terms");
+                final url = Uri.parse(
+                  "https://vitaliy-06.github.io/healthy_eat_legal/terms",
+                );
 
                 if (!await launchUrl(
                   url,

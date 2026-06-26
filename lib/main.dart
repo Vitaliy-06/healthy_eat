@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:healthy_food/layout/layout.dart';
-import 'package:healthy_food/localization/locale_provider.dart';
+import 'package:healthy_food/providers/locale_provider.dart';
+import 'package:healthy_food/providers/theme_provider.dart';
 import 'package:healthy_food/theme/healthy_theme.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
@@ -13,13 +14,16 @@ void main() async {
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
+    DeviceOrientation.portraitDown,
   ]);
 
   await Hive.initFlutter();
   await Hive.openBox("ProductsBox");
 
-  OpenFoodAPIConfiguration.userAgent = UserAgent(name: "HealthyEat", url: r"https://github.com/Vitaliy-06/healthy_eat");
+  OpenFoodAPIConfiguration.userAgent = UserAgent(
+    name: "HealthyEat",
+    url: r"https://github.com/Vitaliy-06/healthy_eat",
+  );
 
   OpenFoodAPIConfiguration.globalLanguages = [
     OpenFoodFactsLanguage.ENGLISH,
@@ -29,12 +33,15 @@ void main() async {
   final LocaleProvider localeProvider = LocaleProvider();
   await localeProvider.loadLocale();
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => localeProvider,
-      child: const MyApp(),
-    ),
-  );
+  final ThemeProvider themeProvider = ThemeProvider();
+  await themeProvider.loadTheme();
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => localeProvider),
+      ChangeNotifierProvider(create: (_) => themeProvider)
+    ],
+    child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -42,8 +49,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LocaleProvider>(
-      builder: (context, localeProvider, _) {
+    return Consumer2<LocaleProvider, ThemeProvider>(
+      builder: (context, localeProvider, themeProvider, _) {
         return MaterialApp(
           title: 'Healthy Eat',
           locale: localeProvider.locale,
@@ -53,7 +60,9 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          darkTheme: healthyDarkTheme,
           theme: healthyTheme,
+          themeMode: themeProvider.themeMode,
           home: const Layout(),
         );
       },
